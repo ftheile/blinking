@@ -1,0 +1,44 @@
+.config
+*.o
+*.pyc
+
+# gtags
+GTAGS
+GRTAGS
+GPATH
+
+# emacs
+.dir-locals.el
+
+# emacs temp file suffixes
+*~
+.#*
+\#*#
+
+# eclipse setting
+.settings
+
+# MacOS directory files
+.DS_Store
+
+sdkconfig
+sdkconfig.old
+
+TEST_LOGS
+
+# gcov coverage reports
+*.gcda
+*.gcno
+coverage.info
+coverage_report/
+
+test_multi_heap_host
+
+# VS Code Settings
+.vscode/
+
+# Results for the checking of the Python coding style
+flake8_output.txt
+
+# ESP-IDF library
+build
