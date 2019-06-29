@@ -40,7 +40,7 @@ bool led_init(struct led* me, gpio_num_t gpio, bool state, TickType_t delay)
 		gpio_set_direction(me->gpio, GPIO_MODE_OUTPUT);
 
 		// Create blink task:
-		ret = (xTaskCreate((TaskFunction_t)blink, "blink", configMINIMAL_STACK_SIZE + 128, me, 5, &me->task) == pdPASS);
+		ret = (xTaskCreate((TaskFunction_t)blink, "blink", configMINIMAL_STACK_SIZE, me, 5, &me->task) == pdPASS);
 	}
 	return ret;
 }
