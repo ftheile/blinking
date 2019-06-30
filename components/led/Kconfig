@@ -1,7 +1,7 @@
 menu "My LED configuration"
     config LED_DYNAMIC_INSTANCE
         bool "Enable dynamic LED creation/destruction"
-		default y
+        default y
         help
             This enables the dynamic creation/destruction of the LED component.
 endmenu  # My LED configuration
