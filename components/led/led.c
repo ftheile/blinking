@@ -1,5 +1,4 @@
 #include "led.h"
-#include "sdkconfig.h"
 
 static void blink(struct led* me)
 {
@@ -9,6 +8,7 @@ static void blink(struct led* me)
 	}
 }
 
+#ifdef CONFIG_LED_DYNAMIC_INSTANCE
 struct led* led_create(gpio_num_t gpio, bool state, TickType_t delay)
 {
 	struct led* ret = malloc(sizeof(struct led));
@@ -24,6 +24,7 @@ void led_destroy(struct led* me)
 	led_cleanup(me);
 	free(me);
 }
+#endif
 
 bool led_init(struct led* me, gpio_num_t gpio, bool state, TickType_t delay)
 {
