@@ -52,7 +52,5 @@ void app_main()
 //	led_cleanup(green_led);
 //	led_cleanup(red_led);
 //	led_cleanup(blue_led);
-
-	vTaskDelete(NULL);
 }
 
