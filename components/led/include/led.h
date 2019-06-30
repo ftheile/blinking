@@ -17,7 +17,7 @@ struct led {
 	TaskHandle_t task;  //!< Handle to control the blink task
 };
 
-/** Dynamic creation.
+/** Dynamic LED creation.
  * \param gpio GPIO no.
  * \param state Initial state of LED
  * \param delay Blink delay
@@ -25,12 +25,12 @@ struct led {
  */
 struct led* led_create(gpio_num_t gpio, bool state, TickType_t delay);
 
-/** Dynamic destruction.
+/** Dynamic LED destruction.
  * \param me The LED instance.
  */
 void led_destroy(struct led* me);
 
-/** Static initialization.
+/** Static LED initialization.
  * \param me The LED instance
  * \param gpio GPIO no.
  * \param state Initial state of LED
@@ -39,7 +39,7 @@ void led_destroy(struct led* me);
  */
 bool led_init(struct led* me, gpio_num_t gpio, bool state, TickType_t delay);
 
-/** Static cleanup.
+/** Static LED cleanup.
  * \param me The LED instance
  */
 void led_cleanup(struct led* me);
