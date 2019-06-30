@@ -49,7 +49,7 @@ void led_cleanup(struct led* me)
 {
 	if (me) {
 		vTaskDelete(me->task);
-		gpio_set_level(me->gpio, 0);
+		gpio_set_level(me->gpio, LED_OFF);
 	}
 }
 
