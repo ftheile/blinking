@@ -3,7 +3,8 @@
 static void blink(struct led* me)
 {
 	while (1) {
-		led_toggle(me);
+		me->state = !me->state;
+		gpio_set_level(me->gpio, me->state);
 		vTaskDelay(me->delay);
 	}
 }
@@ -57,8 +58,43 @@ void led_cleanup(struct led* me)
 void led_toggle(struct led* me)
 {
 	if (me) {
+		vTaskSuspend(me->task);
 		me->state = !me->state;
 		gpio_set_level(me->gpio, me->state);
+	}
+}
+
+void led_on(struct led* me)
+{
+	if (me) {
+		vTaskSuspend(me->task);
+		me->state = LED_ON;
+		gpio_set_level(me->gpio, me->state);
+	}
+}
+
+void led_off(struct led* me)
+{
+	if (me) {
+		vTaskSuspend(me->task);
+		me->state = LED_OFF;
+		gpio_set_level(me->gpio, me->state);
+	}
+}
+
+void led_set(struct led* me, bool state)
+{
+	if (me) {
+		vTaskSuspend(me->task);
+		me->state = state;
+		gpio_set_level(me->gpio, me->state);
+	}
+}
+
+void led_flash(struct led* me)
+{
+	if (me) {
+		vTaskResume(me->task);
 	}
 }
 

@@ -51,5 +51,26 @@ void led_cleanup(struct led* me);
  */
 void led_toggle(struct led* me);
 
+/** Turn LED on.
+ * \param me The LED instance
+ */
+void led_on(struct led* me);
+
+/** Turn LED off.
+ * \param me The LED instance
+ */
+void led_off(struct led* me);
+
+/** Turn LED on or off.
+ * \param me The LED instance
+ * \param state Desired LED state
+ */
+void led_set(struct led* me, bool state);
+
+/** Start flashing the LED.
+ * \param me The LED instance
+ */
+void led_flash(struct led* me);
+
 #endif
 
