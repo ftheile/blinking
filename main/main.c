@@ -40,8 +40,10 @@ void app_main()
 //	led_init(led_red,   LED_RED,   LED_OFF, 1000 / portTICK_PERIOD_MS);
 //	led_init(led_blue,  LED_BLUE,  LED_OFF, 2000 / portTICK_PERIOD_MS);
 
-	// Do something with LEDs...
-	// ...
+	// Start flashing the LEDs:
+	led_flash(led_green);
+	led_flash(led_red);
+	led_flash(led_blue);
 
 	// Destroy dynamic LEDs:
 //	led_destroy(led_green);
