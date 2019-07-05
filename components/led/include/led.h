@@ -2,7 +2,7 @@
 #define _LED_H_
 
 #include "freertos/FreeRTOS.h"
-#include "freertos/task.h"
+#include "freertos/timers.h"
 #include "driver/gpio.h"
 
 #ifdef CONFIG_LED_PULL_CURRENT
@@ -19,7 +19,7 @@ struct led {
 	gpio_num_t gpio;    //!< GPIO no. of the LED
 	bool state;         //!< Initial state / current state of LED
 	TickType_t delay;   //!< Blink delay
-	TaskHandle_t task;  //!< Handle to control the blink task
+	TimerHandle_t timer;  //!< Handle to the software timer to flash the LED
 };
 
 #ifdef CONFIG_LED_DYNAMIC_INSTANCE

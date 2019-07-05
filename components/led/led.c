@@ -1,12 +1,12 @@
 #include "led.h"
 
-static void blink(struct led* me)
+#define TIMER_BLOCK_TIME (100 / portTICK_PERIOD_MS)
+
+static void blink(TimerHandle_t timer)
 {
-	while (1) {
-		me->state = !me->state;
-		gpio_set_level(me->gpio, me->state);
-		vTaskDelay(me->delay);
-	}
+	struct led* me = pvTimerGetTimerID(timer);
+	me->state = !me->state;
+	gpio_set_level(me->gpio, me->state);
 }
 
 #ifdef CONFIG_LED_DYNAMIC_INSTANCE
@@ -41,8 +41,9 @@ bool led_init(struct led* me, gpio_num_t gpio, bool state, TickType_t delay)
 		gpio_set_level(me->gpio, me->state);
 		gpio_set_direction(me->gpio, GPIO_MODE_OUTPUT);
 
-		// Create blink task:
-		ret = (xTaskCreate((TaskFunction_t)blink, "blink", configMINIMAL_STACK_SIZE, me, 5, &me->task) == pdPASS);
+		// Create blink timer:
+		me->timer = xTimerCreate("blink", delay, pdTRUE, me, blink);
+		ret = (me->timer != NULL);
 	}
 	return ret;
 }
@@ -50,7 +51,8 @@ bool led_init(struct led* me, gpio_num_t gpio, bool state, TickType_t delay)
 void led_cleanup(struct led* me)
 {
 	if (me) {
-		vTaskDelete(me->task);
+		xTimerStop(me->timer, TIMER_BLOCK_TIME);
+		xTimerDelete(me->timer, TIMER_BLOCK_TIME);
 		gpio_set_level(me->gpio, LED_OFF);
 	}
 }
@@ -58,7 +60,7 @@ void led_cleanup(struct led* me)
 void led_toggle(struct led* me)
 {
 	if (me) {
-		vTaskSuspend(me->task);
+		xTimerStop(me->timer, TIMER_BLOCK_TIME);
 		me->state = !me->state;
 		gpio_set_level(me->gpio, me->state);
 	}
@@ -67,7 +69,7 @@ void led_toggle(struct led* me)
 void led_on(struct led* me)
 {
 	if (me) {
-		vTaskSuspend(me->task);
+		xTimerStop(me->timer, TIMER_BLOCK_TIME);
 		me->state = LED_ON;
 		gpio_set_level(me->gpio, me->state);
 	}
@@ -76,7 +78,7 @@ void led_on(struct led* me)
 void led_off(struct led* me)
 {
 	if (me) {
-		vTaskSuspend(me->task);
+		xTimerStop(me->timer, TIMER_BLOCK_TIME);
 		me->state = LED_OFF;
 		gpio_set_level(me->gpio, me->state);
 	}
@@ -85,7 +87,7 @@ void led_off(struct led* me)
 void led_set(struct led* me, bool state)
 {
 	if (me) {
-		vTaskSuspend(me->task);
+		xTimerStop(me->timer, TIMER_BLOCK_TIME);
 		me->state = state;
 		gpio_set_level(me->gpio, me->state);
 	}
@@ -94,7 +96,7 @@ void led_set(struct led* me, bool state)
 void led_flash(struct led* me)
 {
 	if (me) {
-		vTaskResume(me->task);
+		xTimerStart(me->timer, TIMER_BLOCK_TIME);
 	}
 }
 
