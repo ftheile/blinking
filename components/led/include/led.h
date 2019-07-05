@@ -5,8 +5,13 @@
 #include "freertos/task.h"
 #include "driver/gpio.h"
 
-#define LED_ON   false
-#define LED_OFF  true
+#ifdef CONFIG_LED_PULL_CURRENT
+	#define LED_ON   false
+	#define LED_OFF  true
+#else
+	#define LED_ON   true
+	#define LED_OFF  false
+#endif
 
 /** A class for an LED.
  */

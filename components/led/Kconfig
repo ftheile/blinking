@@ -4,4 +4,12 @@ menu "My LED configuration"
         default y
         help
             This enables the dynamic creation/destruction of the LED component.
+
+    config LED_PULL_CURRENT
+        bool "GPIO pulls current through the LED"
+        default y
+        help
+            Enable:  GPIO pulls LED current.
+            Disable: GPIO pushes LED current.
+
 endmenu  # My LED configuration
