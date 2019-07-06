@@ -57,46 +57,56 @@ void led_cleanup(struct led* me)
 	}
 }
 
-void led_toggle(struct led* me)
+bool led_toggle(struct led* me)
 {
+	bool ret = false;
 	if (me) {
-		xTimerStop(me->timer, TIMER_BLOCK_TIME);
+		ret = (xTimerStop(me->timer, TIMER_BLOCK_TIME) == pdTRUE);
 		me->state = !me->state;
 		gpio_set_level(me->gpio, me->state);
 	}
+	return ret;
 }
 
-void led_on(struct led* me)
+bool led_on(struct led* me)
 {
+	bool ret = false;
 	if (me) {
-		xTimerStop(me->timer, TIMER_BLOCK_TIME);
+		ret = (xTimerStop(me->timer, TIMER_BLOCK_TIME) == pdTRUE);
 		me->state = LED_ON;
 		gpio_set_level(me->gpio, me->state);
 	}
+	return ret;
 }
 
-void led_off(struct led* me)
+bool led_off(struct led* me)
 {
+	bool ret = false;
 	if (me) {
-		xTimerStop(me->timer, TIMER_BLOCK_TIME);
+		ret = (xTimerStop(me->timer, TIMER_BLOCK_TIME) == pdTRUE);
 		me->state = LED_OFF;
 		gpio_set_level(me->gpio, me->state);
 	}
+	return ret;
 }
 
-void led_set(struct led* me, bool state)
+bool led_set(struct led* me, bool state)
 {
+	bool ret = false;
 	if (me) {
-		xTimerStop(me->timer, TIMER_BLOCK_TIME);
+		ret = (xTimerStop(me->timer, TIMER_BLOCK_TIME) == pdTRUE);
 		me->state = state;
 		gpio_set_level(me->gpio, me->state);
 	}
+	return ret;
 }
 
-void led_flash(struct led* me)
+bool led_flash(struct led* me)
 {
+	bool ret = false;
 	if (me) {
-		xTimerStart(me->timer, TIMER_BLOCK_TIME);
+		ret = (xTimerStart(me->timer, TIMER_BLOCK_TIME) == pdTRUE);
 	}
+	return ret;
 }
 

@@ -42,7 +42,8 @@ void led_destroy(struct led* me);
  * \param gpio GPIO no.
  * \param state Initial state of LED
  * \param delay Blink delay
- * \return true on success, false on failure
+ * \retval true Success
+ * \retval false Failure
  */
 bool led_init(struct led* me, gpio_num_t gpio, bool state, TickType_t delay);
 
@@ -53,29 +54,39 @@ void led_cleanup(struct led* me);
 
 /** Toggle LED state.
  * \param me The LED instance
+ * \retval true Success
+ * \retval false Failure
  */
-void led_toggle(struct led* me);
+bool led_toggle(struct led* me);
 
 /** Turn LED on.
  * \param me The LED instance
+ * \retval true Success
+ * \retval false Failure
  */
-void led_on(struct led* me);
+bool led_on(struct led* me);
 
 /** Turn LED off.
  * \param me The LED instance
+ * \retval true Success
+ * \retval false Failure
  */
-void led_off(struct led* me);
+bool led_off(struct led* me);
 
 /** Turn LED on or off.
  * \param me The LED instance
  * \param state Desired LED state
+ * \retval true Success
+ * \retval false Failure
  */
-void led_set(struct led* me, bool state);
+bool led_set(struct led* me, bool state);
 
 /** Start flashing the LED.
  * \param me The LED instance
+ * \retval true Success
+ * \retval false Failure
  */
-void led_flash(struct led* me);
+bool led_flash(struct led* me);
 
 #endif
 
