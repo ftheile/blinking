@@ -18,7 +18,7 @@
 #define LED_RED   GPIO_NUM_0
 #define LED_BLUE  GPIO_NUM_4
 
-void app_main()
+void app_main(void)
 {
 	struct led* led_green;
 	struct led* led_red;
