@@ -61,33 +61,19 @@ bool led_toggle(struct led* me)
 {
 	bool ret = false;
 	if (me) {
-		ret = (xTimerStop(me->timer, TIMER_BLOCK_TIME) == pdTRUE);
-		me->state = !me->state;
-		gpio_set_level(me->gpio, me->state);
+		ret = led_set(me, !me->state);
 	}
 	return ret;
 }
 
 bool led_on(struct led* me)
 {
-	bool ret = false;
-	if (me) {
-		ret = (xTimerStop(me->timer, TIMER_BLOCK_TIME) == pdTRUE);
-		me->state = LED_ON;
-		gpio_set_level(me->gpio, me->state);
-	}
-	return ret;
+	return led_set(me, LED_ON);
 }
 
 bool led_off(struct led* me)
 {
-	bool ret = false;
-	if (me) {
-		ret = (xTimerStop(me->timer, TIMER_BLOCK_TIME) == pdTRUE);
-		me->state = LED_OFF;
-		gpio_set_level(me->gpio, me->state);
-	}
-	return ret;
+	return led_set(me, LED_OFF);
 }
 
 bool led_set(struct led* me, bool state)
