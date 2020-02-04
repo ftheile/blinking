@@ -15,6 +15,7 @@ idf.py menuconfig
 ```
 
 The LED component has two configuration options in `Component config -> My LED configuration`:
+
 * `CONFIG_LED_DYNAMIC_INSTANCE` to enable functions for dynamic LED construction/destruction
 * `CONFIG_LED_PULL_CURRENT` to adjust for the wiring of the LED to the GPIO pin (push or pull)
 
